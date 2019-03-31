@@ -2,6 +2,9 @@
 
 # install ansible (http://docs.ansible.com/intro_installation.html)
 
+dir="ansible-playbooks"
+
+
 apt-get -y install software-properties-common
 apt-add-repository -y ppa:ansible/ansible
 apt-get update
@@ -9,24 +12,22 @@ apt-get -y install ansible
 
 # copy examples into /home/vagrant (from inside the mgmt node)
 #pwd
-mkdir ansible-playbooks
+
+if [[ ! -e $dir ]]; then
+    mkdir $dir
+fi
+#mkdir ansible-playbooks
 chown -R vagrant:vagrant ansible-playbooks
 cp -a /home/vagrant/playbook.yml /home/vagrant/ansible-playbooks
-chown -R vagrant:vagrant /home/vagrant
+#chown -R vagrant:vagrant /home/vagrant
 
 # configure hosts file for our internal network defined by Vagrantfile
-cat >> /etc/hosts <<EOL
+cat >> /etc/ansible/hosts <<EOL
 # vagrant environment nodes
-10.0.15.10  mgmt
-#10.0.15.11  lb
 [web]
-10.0.15.21  web1
-10.0.15.22  web2
-10.0.15.23  web3
-10.0.15.24  web4
-10.0.15.25  web5
-10.0.15.26  web6
-10.0.15.27  web7
-10.0.15.28  web8
-10.0.15.29  web9
+web1 ansible_host=10.0.15.21
+web2 ansible_host=10.0.15.22
+web3 ansible_host=10.0.15.23
+web4 ansible_host=10.0.15.24
+web5 ansible_host=10.0.15.25
 EOL
