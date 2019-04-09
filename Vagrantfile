@@ -31,10 +31,16 @@ end
         client.vm.hostname = "web#{i}"
         client.vm.network :private_network, ip: "10.0.15.2#{i}"
         client.vm.network "forwarded_port", guest: 80, host: "808#{i}"
+        client.vm.synced_folder "./shared/.ssh", "/home/vagrant", :mount_options => ["dmode=777", "fmode=666"]
         client.vm.provider "virtualbox" do |vb|
           vb.memory = "256"
         end
+        client.vm.provision "shell", inline: <<-SHELL
+             apt-get update
+             echo "-----------------------"
+        SHELL
         client.vm.provision "shell", path: "ansibleuser.sh"
+        client.vm.provision "shell", path: "bootstrap-client.sh"
     end
 end
 

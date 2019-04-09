@@ -18,7 +18,8 @@ cp -a /home/vagrant/playbook.yml /home/ansible
 
 chown -R ansible.ansible /home/ansible/playbook.yml
 
-#chown -R vagrant:vagrant /home/vagrant
+cp -r /home/vagrant/.ssh /home/ansible
+chown -R ansible:ansible /home/ansible/.ssh
 
 # configure hosts file for our internal network defined by Vagrantfile
 
@@ -27,7 +28,4 @@ cat >> /etc/ansible/hosts <<EOL
 [web]
 web1 ansible_host=10.0.15.21
 web2 ansible_host=10.0.15.22
-web3 ansible_host=10.0.15.23
-web4 ansible_host=10.0.15.24
-web5 ansible_host=10.0.15.25
 EOL
