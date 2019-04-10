@@ -35,3 +35,7 @@ su - ansible
 exit
 sudo -s
 exit
+su - ansible
+exit
+sudo -s
+exit
