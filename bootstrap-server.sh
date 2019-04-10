@@ -20,7 +20,7 @@ chown -R ansible.ansible /home/ansible/playbook.yml
 
 cp -r /home/vagrant/.ssh /home/ansible
 chown -R ansible:ansible /home/ansible/.ssh
-
+chmod 400 /home/ansible/.ssh/id_rsa
 # configure hosts file for our internal network defined by Vagrantfile
 
 cat >> /etc/ansible/hosts <<EOL
